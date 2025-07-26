@@ -10,6 +10,7 @@ import 'swiper/swiper-bundle.css';
 import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
 import { type source } from '../../Models/Model';
 import { useState, useEffect } from "react";
+import CountUp from 'react-countup';
 
 interface HomeProps {
   data: source;
@@ -17,31 +18,36 @@ interface HomeProps {
 
 
 const stats = [
-    {
-      icon: "/icons/thumbs-up.svg", // Replace with correct path
-      number: "56000+",
-      label: "Satisfied Customers",
-    },
-    {
-      icon: "/icons/tools.svg",
-      number: "150+",
-      label: "Spares & Service\ncenter across India",
-    },
-    {
-      icon: "/icons/bucket.svg",
-      number: "40+",
-      label: "Types of buckets",
-    },
-    {
-      icon: "/icons/engineer.svg",
-      number: "250+",
-      label: "Experienced\nEngineers",
-    },
-    {
-      icon: "/icons/team.svg",
-      number: "2100+",
-      label: "Employees",
-    },
+  {
+    icon: "/icons/thumbs-up.svg",
+    number: 56000,
+    suffix: "+",
+    label: "Satisfied Customers",
+  },
+  {
+    icon: "/icons/tools.svg",
+    number: 150,
+    suffix: "+",
+    label: "Spares & Service\ncenter across India",
+  },
+  {
+    icon: "/icons/bucket.svg",
+    number: 40,
+    suffix: "+",
+    label: "Types of buckets",
+  },
+  {
+    icon: "/icons/engineer.svg",
+    number: 250,
+    suffix: "+",
+    label: "Experienced\nEngineers",
+  },
+  {
+    icon: "/icons/team.svg",
+    number: 2100,
+    suffix: "+",
+    label: "Employees",
+  },
 ];
 const news = [
   {
@@ -186,7 +192,7 @@ function FnBanner({ data }: HomeProps) {
 }
 function FnResCount() {
   return (
-    <div className="container w-full bg-white border border-gray-200 mx-auto  px-6 md:px-12">
+    <div className="container w-full bg-white border border-gray-200 mx-auto px-6 md:px-12">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 divide-x divide-gray-200">
         {stats.map((stat, index) => (
           <div
@@ -195,7 +201,10 @@ function FnResCount() {
           >
             <img src={stat.icon} alt="icon" className="h-10 w-10" />
             <div className="text-left">
-              <h2 className="text-2xl font-bold text-black">{stat.number}</h2>
+              <h2 className="text-2xl font-bold text-black">
+                <CountUp end={stat.number} duration={2} />
+                {stat.suffix}
+              </h2>
               <p className="text-sm text-gray-600 whitespace-pre-line">
                 {stat.label}
               </p>
@@ -204,7 +213,7 @@ function FnResCount() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 function FnInnovation({ data }: HomeProps) {
   const [playVideo, setPlayVideo] = useState(false);
@@ -500,8 +509,10 @@ function Carousel({data}: HomeProps) {
         </Swiper>
 
           {/* Blur overlays */}
-  <div className=" left-blur"></div>
-  <div className="pointer-events-none absolute top-0 right-0 h-full w-[100px] bg-gradient-to-l from-white/60 via-white/20 to-transparent backdrop-blur-sm"></div>
+  {/* <div className=" left-blur"></div> */}
+<div className="pointer-events-none absolute top-0 left-0 h-full w-[40%] bg-gradient-to-r from-[#f0f0f0] via-[#f0f0f0]/0 to-transparent rounded-r-full z-10"></div>
+<div className="pointer-events-none absolute top-0 right-0 h-full w-[40%] bg-gradient-to-l from-[#f0f0f0] via-[#f0f0f0]/0 to-transparent rounded-l-full z-10"></div>
+
       </div>
     </>
   );

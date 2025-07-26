@@ -12,15 +12,16 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-      <NavBar data={sourceData} />
-      <ScrollToTop/>
-      <Routes>
-        <Route path="/" element={<Home data={sourceData} />} />
-        <Route path="/contact" element={<ContactUs data={sourceData}/>} />
-      </Routes>
-      <Footer data={sourceData}/>  
-    </BrowserRouter>  
+      <BrowserRouter basename="/Bull_Dealer_Site">
+        <NavBar data={sourceData} />
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Home data={sourceData} />} />
+          <Route path="/contact" element={<ContactUs data={sourceData} />} />
+        </Routes>
+        <Footer data={sourceData} />
+      </BrowserRouter>
+  
       
     </>
   )

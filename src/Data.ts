@@ -3,12 +3,18 @@
 // src/data/sourceData.ts    <img src="https://rengatrading.com/bull/images/contact-us-banner.jpg" alt="Contact Us" className="w-full h-[300px] object-cover" />
 
 import type { source } from "./Models/Model";
+// import logo from "../../../src/assets/Image_Host/logo/bull-machine-logo.png";
 // const serverurl = "http://localhost"; // Adjust the URL as needed
 // const serverurl = "https://rengatrading.com/bull/images";
-const serverurl = "/public/image_host/";  //project image
+// const serverurl = "/public/image_host/";  //project image
+
+
 //const serverurl = "http://localhost:4173/Image_Host";//prodbuild
 
-
+const isProd = import.meta.env.MODE === "production";
+const serverurl = isProd
+  ? "/Bull_Dealer_Site/Image_Host"
+  : "Image_Host"; // for local dev 
 export const sourceData: source = {
     logo: {
         bullLogo: serverurl+"/logo/bull-machine-logo.png",
@@ -21,7 +27,7 @@ export const sourceData: source = {
         sd76: serverurl+"/products/bull-loader-hd76-sm.png",
         av490: serverurl+"/products/skid-stree-sm.png",
         conecpbg: serverurl+"/banner/consequipment-bg.jpg",
-        country: serverurl+"/banner/bull-global-footprint.jpg"
+        country: serverurl+"/banner/hqdefault68.jpg"
     },
   icons:{
 
