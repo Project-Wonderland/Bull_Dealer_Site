@@ -1,0 +1,47 @@
+/* Entire Swiper background */
+.my-swiper {
+  background-color: #ffffff;
+}
+
+/* Vertical lines between slides */
+.my-swiper .swiper-slide {
+  border-right: 2px solid #e5e7eb; /* Tailwind gray-300 */
+}
+
+/* Remove border on last slide */
+.my-swiper .swiper-slide:last-child {
+  border-right: none;
+}
+
+
+.left-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.right-blur {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100px;
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
