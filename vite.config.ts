@@ -6,8 +6,8 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss()
-  ],
+    tailwindcss(),
+  ],base: '/Bull_Dealer_Site/'
 })
 
 
