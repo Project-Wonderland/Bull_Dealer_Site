@@ -255,6 +255,8 @@ function FnInnovation({ data }: HomeProps) {
                   alt="Bull Machines Thumbnail"
                   className="w-full h-full object-cover"
                 />
+                {/* Dark overlay */}
+                <div className="absolute inset-0 bg-black/30"></div>
                 <button
                   onClick={() => setPlayVideo(true)}
                   className="absolute inset-0 flex items-center justify-center"
@@ -276,92 +278,6 @@ function FnInnovation({ data }: HomeProps) {
     </div>
   );
 }
-// function FnConstructionEquipments({ data }: HomeProps) {
-//   return (
-//     <div>  
-      
-//       <div className="flex flex-col md:flex-row justify-center items-center gap-6 py-8">
-  
-//         <h2 className="text-black text-2xl md:text-3xl font-extrabold leading-tight text-center md:text-right md:min-w-[200px]">
-//           CONSTRUCTION <br className="hidden md:block" /> EQUIPMENTS
-//         </h2>
-
-//         <div className="hidden md:block h-16 w-px bg-gray-300"></div>
-
-//         <p className="text-gray-700 text-base md:text-lg max-w-2xl">
-//           World class backhoe loader maintaining highest efficiency, operator comfort and safety parameters with ROPS & FOPS accreditation.
-//         </p>
-
-//       </div>
-//       <div style={{ backgroundImage: `url(${data.img.conecpbg})` }}
-//   className="bg-center bg-no-repeat bg-cover h-[425px]"> 
-//         <img
-//           src={data.img.consEcp}
-//           alt="Construction Equipments Background"
-//           className="mx-auto block  object-cover " 
-//         />
-//       </div>
-//       <div className="bg-[#F0F0F0]  px-4 md:px-12">
-//         <div className="container bg-[#EAEAEA] py-8 mx-w-7xl mx-auto px-20 md:px-12">
-//           <Swiper
-//             spaceBetween={2}
-//             slidesPerView={3}
-//             breakpoints={{
-//               640: { slidesPerView: 1 },
-//               768: { slidesPerView: 2 },
-//               1024: { slidesPerView: 3 },
-//             }}
-//             className="my-swiper"
-//           >
-//             {/* Slide 1 */}
-//             <SwiperSlide>
-//               <div className="flex flex-col items-center px-4">
-//                 <img
-//                   src={data.img.sd76}
-//                   alt="SD76 - BS5 SUPER SMART"
-//                   className="h-40 object-contain mb-4"
-//                 />
-//                 <h3 className="font-bold text-center text-black">
-//                   SD76 - BS5 SUPER SMART
-//                 </h3>
-//               </div>
-//             </SwiperSlide>
-
-//             {/* Slide 2 */}
-//             <SwiperSlide>
-//               <div className="flex flex-col items-center px-4">
-//                 <img
-//                   src={data.img.hd76}
-//                   alt="BULL LOADER HD76"
-//                   className="h-40 object-contain mb-4"
-//                 />
-//                 <h3 className="font-bold text-center text-black">
-//                   BULL LOADER HD76
-//                 </h3>
-//               </div>
-//             </SwiperSlide>
-
-//             {/* Slide 3 */}
-//             <SwiperSlide>
-//               <div className="flex flex-col items-center px-4">
-//                 <img
-//                   src={data.img.av490}
-//                   alt="BULL SKID STEER AV490"
-//                   className="h-40 object-contain mb-4"
-//                 />
-//                 <h3 className="font-bold text-center text-black">
-//                   BULL SKID STEER AV490
-//                 </h3>
-//               </div>
-//             </SwiperSlide>
-            
-//           </Swiper>
-//         </div>
-//       </div>
-//     </div> 
-//   )
-// }
-
 function FnConstructionEquipments({ data }: HomeProps) {
   const slides = [
     { src: data.img.sd76, alt: "SD76 - BS5 SUPER SMART", title: "SD76 - BS5 SUPER SMART" },
@@ -371,8 +287,7 @@ function FnConstructionEquipments({ data }: HomeProps) {
   ];
 
   // const [currentImage, setCurrentImage] = useState(data.img.consEcp);
-    const [currentImage, setCurrentImage] = useState(data.img.sd76);
-
+  const [currentImage, setCurrentImage] = useState(data.img.sd76);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -399,119 +314,141 @@ function FnConstructionEquipments({ data }: HomeProps) {
       </div>
 
       {/* Swiper Section */}
-      <div className="bg-[#F0F0F0] px-4 md:px-12">
-        <div className="container bg-[#EAEAEA] py-8 max-w-7xl mx-auto px-20 md:px-12">
-          <Swiper
-            spaceBetween={10}
-            slidesPerView={3}
-            breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+      {/* <div className="bg-[#F0F0F0] px-4 md:px-12"> */}
+      <div className="bg-[#EAEAEA] px-4 md:px-12">
+
+        <div className="container max-w-7xl mx-auto bg-[#EAEAEA] py-4 px-4 md:px-12">
+            <Swiper
+              spaceBetween={0}
+              slidesPerView={3}
+              centeredSlides={true}
+              loop={true}
+              navigation={true}
+              modules={[Navigation]}
+              breakpoints={{
+                640: { slidesPerView: 1 },
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              className="my-swiper"
+            >
+              {slides.map((slide, index) => (
+                <SwiperSlide key={index}>
+                  {({ isActive }) => (
+                    <div
+                      className={`relative group flex flex-col items-center px-4 py-6 cursor-pointer transition-all duration-300 
+                        ${isActive ? 'bg-[#D9D9D9]' : 'bg-[#F0F0F0]'}
+                        hover:bg-[#333333]
+                      `}
+                      onMouseEnter={() => {
+                        setCurrentImage(slide.src);
+                        setHoveredIndex(index);
+                      }}
+                      onMouseLeave={() => {
+                        setHoveredIndex(null);
+                      }}
+                    >
+                      {/* Divider line on the left, not for first slide */}
+                      {index !== 0 && (
+                        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 h-20 w-px bg-gray-300" />
+                      )}
+
+                      {/* Image */}
+                      <div className="relative h-40 w-full flex items-center justify-center">
+                        <img
+                          src={slide.src}
+                          alt={slide.alt}
+                          className="h-40 object-contain z-10 transition-transform duration-300 group-hover:scale-105"
+                        />
+                      </div>
+
+                      {/* Title */}
+                      <h3
+                        className={`font-bold text-center mt-4 text-base transition-colors duration-300
+                          ${hoveredIndex === index ? 'text-white' : 'text-black'}
+                        `}
+                      >
+                        {slide.title}
+                      </h3>
+                    </div>
+                  )}
+                </SwiperSlide>
+              ))}
+                </Swiper>
+            </div>
+          </div>
+
+          
+
+        </div>
+      );
+}
+function Carousel({data}: HomeProps) {
+      return (
+        <>
+          <div className="relative w-full overflow-hidden">
+            <Swiper
+            effect={'coverflow'}
+            grabCursor={true}
+            centeredSlides={true}
+            loop={true}
+            spaceBetween={20}
+            coverflowEffect={{
+              rotate: 0,
+              stretch: 50,
+              depth: 200,
+              modifier: 1,
+              slideShadows: true,
             }}
-            className="my-swiper"
-          >
-            {slides.map((slide, index) => (
-              <SwiperSlide key={index}>
+            pagination={{ clickable: true }}
+            navigation={true}
+            modules={[EffectCoverflow, Pagination, Navigation]}
+            breakpoints={{
+              320: {
+                slidesPerView: 1,
+                height: 250,
+              },
+              640: {
+                slidesPerView: 2,
+                height: 300,
+              },
+              768: {
+                slidesPerView: 3,
+                height: 350,
+              },
+              1024: {
+                slidesPerView: 4,
+                height: 450,
+              },
+              1280: {
+                slidesPerView: 5,
+                height: 500,
+              },
+            }}
+            className="w-full h-[450px] md:h-[450px] lg:h-[600px]">
+            {data.videos.map((video) => (
+              <SwiperSlide key={video.id}>
                 <div
-                  className="flex flex-col items-center px-4 group cursor-pointer"
-                  onMouseEnter={() => {
-                    setCurrentImage(slide.src);
-                    setHoveredIndex(index);
-                  }}
-                  onMouseLeave={() => {
-                    // setCurrentImage(data.img.consEcp);
-                    setHoveredIndex(null);
-                  }}
+                  onClick={() => window.open(`https://www.youtube.com/shorts/${video.youtubeId}`, '_blank')}
+                  className="relative w-full h-full rounded-xl overflow-hidden cursor-pointer group"
                 >
-                  <div className="relative h-40 w-full flex items-center justify-center">
-                    <img
-                      src={slide.src}
-                      alt={slide.alt}
-                      className="h-40 object-contain mb-4 z-10"
-                    />
-                    {hoveredIndex === index && (
-                      <div className="absolute inset-0 bg-gray-800 opacity-50 rounded transition-opacity duration-300"></div>
-                    )}
+                  <img
+                    src={video.thumbnail}
+                    alt="Video Thumbnail"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center text-white text-lg font-semibold">
+                    ▶ Play
                   </div>
-                  <h3 className="font-bold text-center text-black">
-                    {slide.title}
-                  </h3>
                 </div>
               </SwiperSlide>
             ))}
-          </Swiper>
-        </div>
-      </div>
-    </div>
-  );
-}
-function Carousel({data}: HomeProps) {
-  return (
-    <>
-      <div className="relative w-full overflow-hidden">
-        <Swiper
-        effect={'coverflow'}
-        grabCursor={true}
-        centeredSlides={true}
-        loop={true}
-        spaceBetween={20}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 50,
-          depth: 200,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        pagination={{ clickable: true }}
-        navigation={true}
-        modules={[EffectCoverflow, Pagination, Navigation]}
-        breakpoints={{
-          320: {
-            slidesPerView: 1,
-            height: 250,
-          },
-          640: {
-            slidesPerView: 2,
-            height: 300,
-          },
-          768: {
-            slidesPerView: 3,
-            height: 350,
-          },
-          1024: {
-            slidesPerView: 4,
-            height: 450,
-          },
-          1280: {
-            slidesPerView: 5,
-            height: 500,
-          },
-        }}
-        className="w-full h-[450px] md:h-[450px] lg:h-[600px]">
-        {data.videos.map((video) => (
-          <SwiperSlide key={video.id}>
-            <div
-              onClick={() => window.open(`https://www.youtube.com/shorts/${video.youtubeId}`, '_blank')}
-              className="relative w-full h-full rounded-xl overflow-hidden cursor-pointer group"
-            >
-              <img
-                src={video.thumbnail}
-                alt="Video Thumbnail"
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center text-white text-lg font-semibold">
-                ▶ Play
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
         </Swiper>
 
           {/* Blur overlays */}
-  {/* <div className=" left-blur"></div> */}
-<div className="pointer-events-none absolute top-0 left-0 h-full w-[40%] bg-gradient-to-r from-[#f0f0f0] via-[#f0f0f0]/0 to-transparent rounded-r-full z-10"></div>
-<div className="pointer-events-none absolute top-0 right-0 h-full w-[40%] bg-gradient-to-l from-[#f0f0f0] via-[#f0f0f0]/0 to-transparent rounded-l-full z-10"></div>
+          {/* <div className=" left-blur"></div> */}
+        <div className="pointer-events-none absolute top-0 left-0 h-full w-[40%] bg-gradient-to-r from-[#f0f0f0] via-[#f0f0f0]/0 to-transparent rounded-r-full z-10"></div>
+        <div className="pointer-events-none absolute top-0 right-0 h-full w-[40%] bg-gradient-to-l from-[#f0f0f0] via-[#f0f0f0]/0 to-transparent rounded-l-full z-10"></div>
 
       </div>
     </>
@@ -544,6 +481,15 @@ function NewsAndUpdates(){
         {news.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="rounded shadow p-6 h-full flex flex-col justify-between my-20">
+              {/* Rectangle image above heading */}
+              <div className="w-full h-32 mb-4 bg-gray-200 rounded overflow-hidden flex items-center justify-center">
+                {/* Replace src with your news image if available */}
+                <img
+                  src="/images/news-placeholder.jpg"
+                  alt="News"
+                  className="object-cover w-full h-full"
+                />
+              </div>
               <div>
                 <h3 className="text-lg md:text-xl font-semibold mb-4">
                   {item.title}
