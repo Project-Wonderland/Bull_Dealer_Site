@@ -293,7 +293,7 @@ function FnConstructionEquipments({ data }: HomeProps) {
   return (
     <div>  
       {/* Top Section */}
-      <div className="flex flex-col md:flex-row justify-center items-center gap-6 py-8">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-6 py-13">
         <h2 className="text-black text-2xl md:text-3xl font-extrabold leading-tight text-center md:text-right md:min-w-[200px]">
           CONSTRUCTION <br className="hidden md:block" /> EQUIPMENTS
         </h2>
@@ -383,73 +383,105 @@ function FnConstructionEquipments({ data }: HomeProps) {
         </div>
       );
 }
-function Carousel({data}: HomeProps) {
-      return (
-        <>
-          <div className="relative w-full overflow-hidden">
-            <Swiper
-            effect={'coverflow'}
-            grabCursor={true}
-            centeredSlides={true}
-            loop={true}
-            spaceBetween={20}
-            coverflowEffect={{
-              rotate: 0,
-              stretch: 50,
-              depth: 200,
-              modifier: 1,
-              slideShadows: true,
-            }}
-            pagination={{ clickable: true }}
-            navigation={true}
-            modules={[EffectCoverflow, Pagination, Navigation]}
-            breakpoints={{
-              320: {
-                slidesPerView: 1,
-                height: 250,
-              },
-              640: {
-                slidesPerView: 2,
-                height: 300,
-              },
-              768: {
-                slidesPerView: 3,
-                height: 350,
-              },
-              1024: {
-                slidesPerView: 4,
-                height: 450,
-              },
-              1280: {
-                slidesPerView: 5,
-                height: 500,
-              },
-            }}
-            className="w-full h-[450px] md:h-[450px] lg:h-[600px]">
-            {data.videos.map((video) => (
-              <SwiperSlide key={video.id}>
-                <div
-                  onClick={() => window.open(`https://www.youtube.com/shorts/${video.youtubeId}`, '_blank')}
-                  className="relative w-full h-full rounded-xl overflow-hidden cursor-pointer group"
-                >
-                  <img
-                    src={video.thumbnail}
-                    alt="Video Thumbnail"
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center text-white text-lg font-semibold">
-                    ▶ Play
-                  </div>
+
+function Carousel({ data }: HomeProps) {
+  const [modalVideo, setModalVideo] = useState<string | null>(null);
+
+  return (
+    <>
+      <div className="relative w-full overflow-hidden">
+        <Swiper
+          effect={'coverflow'}
+          grabCursor={true}
+          centeredSlides={true}
+          loop={true}
+          spaceBetween={20}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 50,
+            depth: 200,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          pagination={{ clickable: true }}
+          navigation={true}
+          modules={[EffectCoverflow, Pagination, Navigation]}
+          breakpoints={{
+            320: {
+              slidesPerView: 1,
+              height: 250,
+            },
+            640: {
+              slidesPerView: 2,
+              height: 300,
+            },
+            768: {
+              slidesPerView: 3,
+              height: 350,
+            },
+            1024: {
+              slidesPerView: 4,
+              height: 450,
+            },
+            1280: {
+              slidesPerView: 5,
+              height: 500,
+            },
+          }}
+          className="w-full h-[450px] md:h-[450px] lg:h-[600px]"
+        >
+          {data.videos.map((video) => (
+            <SwiperSlide key={video.id}>
+              <div
+                onClick={() => setModalVideo(video.youtubeId)}
+                className="relative w-full h-full rounded-xl overflow-hidden cursor-pointer group"
+              >
+                <img
+                  src={video.thumbnail}
+                  alt="Video Thumbnail"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-12 w-12 text-red-600"
+                    viewBox="0 0 48 48"
+                    fill="currentColor"
+                  >
+                    <rect width="58" height="58" rx="10" fill="none" />
+                    <path d="M44.5 14.5a5.5 5.5 0 0 0-3.9-3.9C37.1 9.5 24 9.5 24 9.5s-13.1 0-16.6 1.1a5.5 5.5 0 0 0-3.9 3.9C2.5 18 2.5 24 2.5 24s0 6 1.1 9.5a5.5 5.5 0 0 0 3.9 3.9C10.9 38.5 24 38.5 24 38.5s13.1 0 16.6-1.1a5.5 5.5 0 0 0 3.9-3.9C45.5 30 45.5 24 45.5 24s0-6-1.1-9.5ZM20 30.5v-13l12 6.5-12 6.5Z" />
+                  </svg>
                 </div>
-              </SwiperSlide>
-            ))}
+              </div>
+            </SwiperSlide>
+          ))}
+          {modalVideo && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+              <div className="relative bg-black rounded-lg shadow-lg w-full max-w-2xl aspect-video flex items-center justify-center">
+                <button
+                  className="absolute top-2 right-2 text-white text-2xl z-10"
+                  onClick={() => setModalVideo(null)}
+                  aria-label="Close"
+                >
+                  &times;
+                </button>
+                <iframe
+                  className="w-full h-full rounded-lg"
+                  src={`https://www.youtube.com/embed/${modalVideo}?autoplay=1`}
+                  title="YouTube video"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  style={{ border: 0 }}
+                />
+              </div>
+            </div>
+          )}
         </Swiper>
 
-          {/* Blur overlays */}
-          {/* <div className=" left-blur"></div> */}
-        <div className="pointer-events-none absolute top-0 left-0 h-full w-[40%] bg-gradient-to-r from-[#f0f0f0] via-[#f0f0f0]/0 to-transparent rounded-r-full z-10"></div>
-        <div className="pointer-events-none absolute top-0 right-0 h-full w-[40%] bg-gradient-to-l from-[#f0f0f0] via-[#f0f0f0]/0 to-transparent rounded-l-full z-10"></div>
-
+        {/* Blur overlays */}
+        {/* <div className=" left-blur"></div> */}
+        <div className="pointer-events-none absolute top-0 left-0 h-full w-[40%] bg-gradient-to-r from-[#f0f0f0] via-[#f0f0f0]/0 to-transparent rounded-r-full z-2"></div>
+        <div className="pointer-events-none absolute top-0 right-0 h-full w-[40%] bg-gradient-to-l from-[#f0f0f0] via-[#f0f0f0]/0 to-transparent rounded-l-full z-2"></div>
       </div>
     </>
   );
@@ -556,6 +588,8 @@ const Home = ({ data }: HomeProps) => {
     <FnResCount />
 
     <FnInnovation data={data}/>
+
+    <FnConstructionEquipments data={data}/>
 
     <FnConstructionEquipments data={data}/>
     

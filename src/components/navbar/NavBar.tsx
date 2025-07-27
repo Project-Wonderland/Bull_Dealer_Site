@@ -22,7 +22,7 @@ interface HomeProps {
     { src: data.img.sd76, alt: "SD76 - BS5 SUPER SMART", title: "SD76 - BS5 SUPER SMART" },
     { src: data.img.hd76, alt: "BULL LOADER HD76", title: "BULL LOADER HD76" },
     { src: data.img.av490, alt: "BULL SKID STEER AV490", title: "BULL SKID STEER AV490" },
-    { src: data.img.consEcp, alt: "ConstEquipment", title: "ConstEquipment" }
+    // { src: data.img.consEcp, alt: "ConstEquipment", title: "ConstEquipment" }
   ];
 
   return (
